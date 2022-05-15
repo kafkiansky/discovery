@@ -170,7 +170,7 @@ var_dump($discovery->discover(
 ## Loader constraints
 
 If you want to specify which classes can be loaded, you can use the `LoaderConstraint` interface implementation.
-Out of the box comes the `Kafkiansky\Discovery\CodeLocation\Composer\OnlyApplicationCodeLoaderConstraint` class that load only classes that matches namespaces from `autoload.psr4` section of your `composer.json` file.
+Out of the box comes the `Kafkiansky\Discovery\CodeLocation\Composer\LoadOnlyApplicationCode` class that load only classes that matches namespaces from `autoload.psr4` section of your `composer.json` file.
 
 ```php
 <?php
@@ -178,12 +178,12 @@ Out of the box comes the `Kafkiansky\Discovery\CodeLocation\Composer\OnlyApplica
 use Kafkiansky\Discovery\Discovery;
 use Kafkiansky\Discovery\CodeLocation\Composer\ComposerClassmapClassLoader;
 use Kafkiansky\Discovery\Rules\ClassImplements;
-use Kafkiansky\Discovery\CodeLocation\Composer\OnlyApplicationCodeLoaderConstraint;
+use Kafkiansky\Discovery\CodeLocation\Composer\LoadOnlyApplicationCode;
 
 $applicationRoot = __DIR__;
 
 $discovery = new Discovery(
-    new ComposerClassmapClassLoader($applicationRoot, new OnlyApplicationCodeLoaderConstraint($applicationRoot))
+    new ComposerClassmapClassLoader($applicationRoot, new LoadOnlyApplicationCode($applicationRoot))
 );
 
 var_dump($discovery->discover(new ClassImplements(\Stringable::class)));
@@ -200,7 +200,7 @@ If you want pass your own classmap loader, overload the default loader using `wi
 use Kafkiansky\Discovery\Discovery;
 use Kafkiansky\Discovery\CodeLocation\Composer\ComposerClassmapClassLoader;
 use Kafkiansky\Discovery\Rules\ClassExtends;
-use Kafkiansky\Discovery\CodeLocation\Composer\OnlyApplicationCodeLoaderConstraint;
+use Kafkiansky\Discovery\CodeLocation\Composer\LoadOnlyApplicationCode;
 use Kafkiansky\Discovery\FileNotFound;
 
 $applicationRoot = __DIR__;

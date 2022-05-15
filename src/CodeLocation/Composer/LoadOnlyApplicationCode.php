@@ -9,7 +9,7 @@ use Kafkiansky\Discovery\FileNotFound;
 use Kafkiansky\Discovery\InvalidJsonSchema;
 use function Kafkiansky\Discovery\withPath;
 
-final class OnlyApplicationCodeLoaderConstraint implements LoaderConstraint
+final class LoadOnlyApplicationCode implements LoaderConstraint
 {
     /**
      * @param non-empty-string $appPath

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Kafkiansky\Discovery\Tests\Composer;
 
 use Kafkiansky\Discovery\CodeLocation\Composer\ComposerClassmapClassLoader;
-use Kafkiansky\Discovery\CodeLocation\Composer\OnlyApplicationCodeLoaderConstraint;
+use Kafkiansky\Discovery\CodeLocation\Composer\LoadOnlyApplicationCode;
 use Kafkiansky\Discovery\Rules\All;
 use Kafkiansky\Discovery\Rules\None;
 use PHPUnit\Framework\TestCase;
@@ -19,7 +19,7 @@ final class ComposerClassmapClassLoaderTest extends TestCase
     {
         $loader = new ComposerClassmapClassLoader(
             __DIR__.'/../../',
-            new OnlyApplicationCodeLoaderConstraint(__DIR__.'/../../')
+            new LoadOnlyApplicationCode(__DIR__.'/../../')
         );
 
         $classes = \iterator_to_array($loader->load());

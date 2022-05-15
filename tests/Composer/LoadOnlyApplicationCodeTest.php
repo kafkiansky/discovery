@@ -4,18 +4,18 @@ declare(strict_types=1);
 
 namespace Kafkiansky\Discovery\Tests\Composer;
 
-use Kafkiansky\Discovery\CodeLocation\Composer\OnlyApplicationCodeLoaderConstraint;
+use Kafkiansky\Discovery\CodeLocation\Composer\LoadOnlyApplicationCode;
 use Kafkiansky\Discovery\Rules\All;
 use PHPUnit\Framework\TestCase;
 
 /**
  * @psalm-suppress PropertyNotSetInConstructor
  */
-final class OnlyApplicationCodeLoaderConstraintTest extends TestCase
+final class LoadOnlyApplicationCodeTest extends TestCase
 {
     public function testClassShouldBeLoad(): void
     {
-        $constraint = new OnlyApplicationCodeLoaderConstraint(
+        $constraint = new LoadOnlyApplicationCode(
             __DIR__.'/../../'
         );
 
@@ -24,7 +24,7 @@ final class OnlyApplicationCodeLoaderConstraintTest extends TestCase
 
     public function testClassShouldNotBeLoad(): void
     {
-        $constraint = new OnlyApplicationCodeLoaderConstraint(
+        $constraint = new LoadOnlyApplicationCode(
             __DIR__.'/../../'
         );
 

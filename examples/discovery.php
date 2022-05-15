@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use Kafkiansky\Discovery\CodeLocation\ArrayClassLoader;
 use Kafkiansky\Discovery\CodeLocation\Composer\ComposerClassmapClassLoader;
-use Kafkiansky\Discovery\CodeLocation\Composer\OnlyApplicationCodeLoaderConstraint;
+use Kafkiansky\Discovery\CodeLocation\Composer\LoadOnlyApplicationCode;
 use Kafkiansky\Discovery\Discovery;
 use Kafkiansky\Discovery\DiscoveryRule;
 use Kafkiansky\Discovery\Rules\All;
@@ -20,7 +20,7 @@ $discovery = new Discovery(new ArrayClassLoader([
     Any::class,
     None::class,
     Discovery::class,
-    OnlyApplicationCodeLoaderConstraint::class,
+    LoadOnlyApplicationCode::class,
 ]));
 
 print_r($discovery->discover(new ClassImplements(DiscoveryRule::class)));
