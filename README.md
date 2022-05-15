@@ -192,7 +192,7 @@ var_dump($discovery->discover(new ClassImplements(\Stringable::class)));
 ## Composer loader
 
 By default, the `ComposerClassmapClassLoader` search the `autoload_classmap.php` in `vendor/composer/autoload_classmap.php` path and require it.
-If you want pass your own classmap loader, overload the default loader using `withLoader` method:
+If you want pass your own classmap loader, overload the default loader using `withClassMapLoader` method:
 
 ```php
 <?php
