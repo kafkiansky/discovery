@@ -15,7 +15,7 @@ jobs:
     strategy:
       fail-fast: true
       matrix:
-        php: [7.4, 8.0, 8.1]
+        php: [8.1]
         stability: [prefer-lowest, prefer-stable]
 
     name: PHP ${{ matrix.php }} / ${{ matrix.stability }}
@@ -38,10 +38,13 @@ jobs:
           coverage: xdebug
 
       - name: Install dependencies
-        run: composer update --prefer-dist --no-interaction --no-suggest --optimize
+        run: composer update --prefer-dist --no-interaction --no-suggest
 
       - name: Validate composer.json
         run: composer validate
+
+      - name: Dump autoload
+        run: composer dump-autoload  --optimize
 
       - name: Execute tests
         run: composer test
