@@ -236,7 +236,7 @@ $discovery = new Discovery(new ArrayClassLoader([
 var_dump($discovery->discover(new ClassExtends(\Exception::class)));
 ```
 
-### Performance optimization
+## Performance optimization
 
 In production, you will want to cache classes that match the rules to avoid unnecessary checks. Then you must use `DiscoveryWithCache`:
 
@@ -261,7 +261,7 @@ $discovery = new DiscoveryWithCache(
 $discovery->discover(new ClassImplements(\Stringable::class));
 ```
 
-Or if you want to cache conditionally, use `saveIf` callable to specify when to cache and when not:
+Or if you want to cache conditionally, use `cacheIf` callable to specify when to cache and when not:
 
 ```php
 <?php
@@ -278,7 +278,7 @@ $cacheDir = __DIR__.'/cache';
 
 $discovery = new DiscoveryWithCache(
     new Discovery(new ComposerClassmapClassLoader($appPath), new LoadOnlyApplicationCode($appPath)),
-    new FilesystemCache(directory: $cacheDir, saveIf: function (): bool {
+    new FilesystemCache(directory: $cacheDir, cacheIf: function (): bool {
         return \get_env('APP_ENV') === 'production'; 
     });
 );

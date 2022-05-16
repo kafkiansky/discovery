@@ -13,19 +13,19 @@ final class FilesystemCache implements CacheStorage
     /**
      * @var callable(): bool
      */
-    private $saveIf;
+    private $cacheIf;
 
     /**
      * @param non-empty-string $directory
      * @param non-empty-string $extension
-     * @psalm-param (callable():bool)|null $saveIf
+     * @psalm-param (callable():bool)|null $cacheIf
      */
     public function __construct(
         private string $directory,
         private string $extension = self::EXTENSION,
-        ?callable $saveIf = null
+        ?callable $cacheIf = null
     ) {
-        $this->saveIf = $saveIf ?: fn (): bool => true;
+        $this->cacheIf = $cacheIf ?: fn (): bool => true;
     }
 
     /**
@@ -60,7 +60,7 @@ final class FilesystemCache implements CacheStorage
      */
     public function set(string $id, array $classes): void
     {
-        if (($this->saveIf)()) {
+        if (($this->cacheIf)()) {
             $filename = $this->getFilename($id);
 
             [$data, $filepath] = [\serialize($classes), \pathinfo($filename, \PATHINFO_DIRNAME)];

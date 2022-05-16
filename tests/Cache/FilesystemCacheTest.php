@@ -67,6 +67,6 @@ final class FilesystemCacheTest extends TestCase
      */
     private function cache(?callable $saveIf = null): CacheStorage
     {
-        return new FilesystemCache(directory: __DIR__.'/../storage', saveIf: $saveIf);
+        return new FilesystemCache(directory: __DIR__.'/../storage', cacheIf: $saveIf);
     }
 }
