@@ -17,6 +17,7 @@
 - [Loader constraints](#loader-constraints)
 - [Composer loader](#composer-loader)
 - [Array loader](#array-loader)
+- [Performance optimization](#performance-optimization)
 - [Testing](#testing)
 - [License](#license)
 
@@ -233,6 +234,56 @@ $discovery = new Discovery(new ArrayClassLoader([
 ]));
 
 var_dump($discovery->discover(new ClassExtends(\Exception::class)));
+```
+
+### Performance optimization
+
+In production, you will want to cache classes that match the rules to avoid unnecessary checks. Then you must use `DiscoveryWithCache`:
+
+```php
+<?php
+
+use Kafkiansky\Discovery\Cache\DiscoveryWithCache;
+use Kafkiansky\Discovery\Cache\Adapter\FilesystemCache;
+use Kafkiansky\Discovery\Discovery;
+use Kafkiansky\Discovery\CodeLocation\Composer\ComposerClassmapClassLoader;
+use Kafkiansky\Discovery\CodeLocation\Composer\LoadOnlyApplicationCode;
+use Kafkiansky\Discovery\Rules\ClassImplements;
+
+$appPath = __DIR__;
+$cacheDir = __DIR__.'/cache';
+
+$discovery = new DiscoveryWithCache(
+    new Discovery(new ComposerClassmapClassLoader($appPath), new LoadOnlyApplicationCode($appPath)),
+    new FilesystemCache($cacheDir)
+);
+
+$discovery->discover(new ClassImplements(\Stringable::class));
+```
+
+Or if you want to cache conditionally, use `saveIf` callable to specify when to cache and when not:
+
+```php
+<?php
+
+use Kafkiansky\Discovery\Cache\DiscoveryWithCache;
+use Kafkiansky\Discovery\Cache\Adapter\FilesystemCache;
+use Kafkiansky\Discovery\Discovery;
+use Kafkiansky\Discovery\CodeLocation\Composer\ComposerClassmapClassLoader;
+use Kafkiansky\Discovery\CodeLocation\Composer\LoadOnlyApplicationCode;
+use Kafkiansky\Discovery\Rules\ClassImplements;
+
+$appPath = __DIR__;
+$cacheDir = __DIR__.'/cache';
+
+$discovery = new DiscoveryWithCache(
+    new Discovery(new ComposerClassmapClassLoader($appPath), new LoadOnlyApplicationCode($appPath)),
+    new FilesystemCache(directory: $cacheDir, saveIf: function (): bool {
+        return \get_env('APP_ENV') === 'production'; 
+    });
+);
+
+$discovery->discover(new ClassImplements(\Stringable::class));
 ```
 
 ## Testing

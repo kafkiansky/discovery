@@ -6,16 +6,14 @@ namespace Kafkiansky\Discovery;
 
 use Kafkiansky\Discovery\CodeLocation\ClassLoader;
 
-final class Discovery
+final class Discovery implements DiscoverCode
 {
     public function __construct(private ClassLoader $classLoader)
     {
     }
 
     /**
-     * @throws \Throwable
-     *
-     * @return \Traversable<class-string>
+     * {@inheritdoc}
      */
     public function discover(DiscoveryRule $rule): \Traversable
     {
