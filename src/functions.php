@@ -32,6 +32,8 @@ function withPath(string $basePath, string ...$parts): string
  *
  * @param callable(): T $function
  *
+ * @throws \ErrorException
+ *
  * @return T|false
  */
 function withErrorHandling(callable $function): mixed

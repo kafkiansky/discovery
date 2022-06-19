@@ -17,7 +17,7 @@ final class ClassImplements implements DiscoveryRule
     /**
      * @param class-string[]|class-string $interfaces
      */
-    public function __construct(array|string $interfaces, private bool $implementsAll = true)
+    public function __construct(array|string $interfaces, private readonly bool $implementsAll = true)
     {
         $this->interfaces = \is_string($interfaces) ? [$interfaces] : $interfaces;
     }

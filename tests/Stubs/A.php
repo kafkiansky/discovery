@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Kafkiansky\Discovery\Tests\Stubs;
 
+#[XAttribute]
 final class A extends B implements C, \Stringable
 {
     use E;

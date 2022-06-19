@@ -11,6 +11,7 @@
   - [ClassImplements](#class-implements)
   - [ClassExtends](#class-extends)
   - [ClassUses](#class-uses)
+  - [ClassHasAttributes](#class-has-attributes)
   - [All](#all)
   - [Any](#any)
   - [None](#none)
@@ -106,6 +107,22 @@ use Kafkiansky\Discovery\Rules\ClassUses;
 $discovery = new Discovery(new ComposerClassmapClassLoader(__DIR__));
 
 var_dump($discovery->discover(new ClassUses(SomeTrait::class)));
+```
+
+### Class Has Attributes
+
+Discover all classes that use specific attributes. 
+
+```php
+<?php
+
+use Kafkiansky\Discovery\Discovery;
+use Kafkiansky\Discovery\CodeLocation\Composer\ComposerClassmapClassLoader;
+use Kafkiansky\Discovery\Rules\ClassHasAttributes;
+
+$discovery = new Discovery(new ComposerClassmapClassLoader(__DIR__));
+
+var_dump($discovery->discover(new ClassHasAttributes(SomeAttribute::class)));
 ```
 
 ### All

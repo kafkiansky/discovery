@@ -15,7 +15,7 @@ final class ClassUses implements DiscoveryRule
     /**
      * @param non-empty-string[]|non-empty-string $traits
      */
-    public function __construct(array|string $traits, private bool $usesAll = true)
+    public function __construct(array|string $traits, private readonly bool $usesAll = true)
     {
         $this->traits = \is_string($traits) ? [$traits] : $traits;
     }

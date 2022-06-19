@@ -12,14 +12,14 @@ final class ClassExtends implements DiscoveryRule
     /**
      * @var class-string[]
      */
-    private array $parents;
+    private readonly array $parents;
 
     /**
-     * @param class-string[]|class-string $parents
+     * @param class-string ...$parents
      */
-    public function __construct(array|string $parents)
+    public function __construct(string ...$parents)
     {
-        $this->parents = \is_string($parents) ? [$parents] : $parents;
+        $this->parents = $parents;
     }
 
     /**
@@ -28,13 +28,14 @@ final class ClassExtends implements DiscoveryRule
     public function satisfy(string $fqcn): bool
     {
         return withErrorHandling(function () use ($fqcn): bool {
-            $parent = \get_parent_class($fqcn);
+            $parent = $fqcn;
 
-            if ($parent === false) {
-                return false;
-            }
+            $parents = [];
+            do {
+                $parents[] = $parent;
+            } while (false !== ($parent = get_parent_class($parent)));
 
-            return \in_array($parent, $this->parents);
+            return \count(\array_intersect($this->parents, $parents)) > 0;
         });
     }
 }
